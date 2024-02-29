@@ -56,7 +56,11 @@ public final class Constants {
        public static final int m_leftStickX = 0;
        public static final int m_leftStickY = 1;
        public static final int m_rightStickX = 2;
-  
+    }
+
+    public final class DriverButtons {
+      public static final int m_leftDriveBumper = 5; 
+      public static final int m_leftDriveTrigger = 7;
     }
     
    }
@@ -81,8 +85,28 @@ public final class Constants {
         public static final int m_rightStickButton = 12;
 
       }
+   }
 
+   public static final class Pneumatics{
+    public static final int kSolenoidForwardChannel = 0;
+    public static final int kSolenoidReverseChannel = 1;
 
+   }
+
+   public static final class WristMotors{
+    public static final int m_wristMotorLeft = 17;
+    public static final int m_wristMotorRight = 18;
+   }
+
+   public static final class ArmMotors{
+    public static final int m_armMotorRight = 19;
+    public static final int m_armMotorLeft = 20;
+   }
+
+   public static final class IntakeMotors{
+    public static final int m_topMotor = 21;
+    public static final int m_bottomMotor = 22;
+    public static final int m_transferMotor = 23; 
    }
 
    public static final class DriveConstants{

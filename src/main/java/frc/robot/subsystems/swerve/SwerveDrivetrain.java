@@ -7,25 +7,19 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 
 import com.ctre.phoenix6.hardware.CANcoder;
-//import com.ctre.phoenix6.unmanaged.Unmanaged;
 import com.revrobotics.CANSparkLowLevel;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkBase.IdleMode;
 
 import edu.wpi.first.math.controller.ProfiledPIDController;
-//import edu.wpi.first.math.estimator.SwerveDrivePoseEstimator;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
-//import edu.wpi.first.math.geometry.Transform2d;
 import edu.wpi.first.math.kinematics.ChassisSpeeds;
 import edu.wpi.first.math.kinematics.SwerveDriveKinematics;
 import edu.wpi.first.math.kinematics.SwerveModulePosition;
 import edu.wpi.first.math.kinematics.SwerveModuleState;
-//import edu.wpi.first.math.trajectory.Trajectory;
 import edu.wpi.first.math.trajectory.TrapezoidProfile;
 import edu.wpi.first.math.util.Units;
-//import edu.wpi.first.networktables.DoublePublisher;
-//import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 import frc.robot.Constants;
@@ -34,13 +28,16 @@ import frc.robot.Constants.IDs;
 import frc.robot.Constants.ModulePosition.Swerve_Module_Position;
 import frc.robot.utils.ModuleMap;
 
+import edu.wpi.first.wpilibj.TimedRobot;
+import edu.wpi.first.math.trajectory.Trajectory;
+import edu.wpi.first.math.geometry.Transform2d;
+import edu.wpi.first.math.estimator.SwerveDrivePoseEstimator;
 
 import java.util.HashMap;
 import java.util.Map;
 
 
 import edu.wpi.first.wpilibj.SPI;
-//import edu.wpi.first.wpilibj.TimedRobot;
 
 import com.kauailabs.navx.frc.AHRS;
 
@@ -90,14 +87,13 @@ public class SwerveDrivetrain extends SubsystemBase {
 
  private final AHRS m_gyro = new AHRS(SPI.Port.kMXP, (byte) 200);
 
- //private Trajectory m_Trajectory;
+ private Trajectory m_Trajectory;
  
- //private final SwerveDrivePoseEstimator m_odometry;
-  //private double m_simYaw;
-  //private DoublePublisher pitchPub, rollPub, yawPub, odometryXPub, odometryYPub, odometryYawPub;
+ private final SwerveDrivePoseEstimator m_odometry;
+ 
 
   private boolean useHeadingTarget = false;
-  //private double m_desiredRobotHeading;
+  private double m_desiredRobotHeading;
 
   private final TrapezoidProfile.Constraints m_constraints =
       new TrapezoidProfile.Constraints(
@@ -126,32 +122,25 @@ public class SwerveDrivetrain extends SubsystemBase {
     } catch (Exception e){
     }
     }).start();
-  }
+  
 
-    /*m_odometry = new SwerveDrivePoseEstimator(Constants.ModulePosition.kSwerveKinematics,
+    m_odometry = new SwerveDrivePoseEstimator(Constants.ModulePosition.kSwerveKinematics,
       getHeadingRotation2d(), getSwerveDriveModulePositionsArray(), getPoseMeters());
       if (TimedRobot.isReal()) resetModulesToAbsolute();
     
-  }*/
-
-  //added 2/19
-  public void zeroHeading(){
-    m_gyro.reset();
-  }
+    }
 
 
-  
-
-    //m_gyro.zeroYaw();
-   // m_gyro.getRotation2d();
-
+    public void zeroHeading(){
+      m_gyro.reset();
+    }
    
 
 
-  /*private void resetModulesToAbsolute() {
-    for (SwerveModule module : ModuleMap.orderedValuesList(m_swerveModules))
-     module.resetEncoders();
-  }*/
+    private void resetModulesToAbsolute() {
+      for (SwerveModule module : ModuleMap.orderedValuesList(m_swerveModules))
+      module.resetEncoders();
+    }
 
   
   
@@ -175,7 +164,7 @@ public class SwerveDrivetrain extends SubsystemBase {
               : new ChassisSpeeds(throttle, strafe, rotation);
     }
 
-   // Rotation2d getHeadingRot = getHeadingRotation2d(); // added 2/20 LC
+    //Rotation2d getHeadingRot = getHeadingRotation2d(); // added 2/20 LC
 
    Map<Swerve_Module_Position, SwerveModuleState> moduleStates =
        ModuleMap.of(Constants.ModulePosition.kSwerveKinematics.toSwerveModuleStates(chassisSpeeds));
@@ -188,12 +177,12 @@ public class SwerveDrivetrain extends SubsystemBase {
   }
   
  
-   /*public void setRobotHeading(double desiredAngleSetpoint) {
+   public void setRobotHeading(double desiredAngleSetpoint) {
     m_desiredRobotHeading = desiredAngleSetpoint;
   }
 
   
-/* 
+
 
   public void calculateRotationSpeed() {
     // m_goal = new TrapezoidProfile.State(Units.degreesToRadians(m_desiredRobotHeading), 0);
@@ -203,19 +192,19 @@ public class SwerveDrivetrain extends SubsystemBase {
     m_rotationOutput =
       m_rotationController.calculate(getHeadingRotation2d().getRadians(), m_desiredRobotHeading);
   }
-   */
+   
   
    public void enableHeadingTarget(boolean enable) {
     useHeadingTarget = enable;
   }
 
  
-  /*public void resetState() {
+  public void resetState() {
     m_setpoint =
         new TrapezoidProfile.State();
             Units.degreesToRadians(getHeadingDegrees()); Units.degreesToRadians(0);
   }
-*/
+
 
  
   public void setSwerveModuleStates(SwerveModuleState[] states, boolean isOpenLoop) {
@@ -239,9 +228,9 @@ public class SwerveDrivetrain extends SubsystemBase {
 
 
 
-   /*public void setOdometry(Pose2d pose) {
+   public void setOdometry(Pose2d pose) {
     m_odometry.resetPosition(getHeadingRotation2d(), getSwerveDriveModulePositionsArray(), pose);
-  }*/
+  }
 
   public void stopModules(){
     for (SwerveModule module : m_swerveModules.values()){
@@ -274,9 +263,9 @@ public class SwerveDrivetrain extends SubsystemBase {
     return true;
   }
 
- /* public Pose2d getPoseMeters() {
+  public Pose2d getPoseMeters() {
     return m_odometry.getEstimatedPosition();
-  }*/
+  }
 
   public SwerveModule getSwerveModule(Swerve_Module_Position modulePosition) {
     return m_swerveModules.get(modulePosition);
@@ -315,7 +304,7 @@ public class SwerveDrivetrain extends SubsystemBase {
     }
   }
 
-  /*public void setMaxVelocity(double mps) {
+  public void setMaxVelocity(double mps) {
     m_maxVelocity = mps;
   }
 
@@ -330,13 +319,13 @@ public class SwerveDrivetrain extends SubsystemBase {
   public SwerveDrivePoseEstimator getOdometry() {
   return m_odometry;
   }
-*/
+
   public void resetGyro() {
     m_gyro.zeroYaw();
     m_gyro.reset();
   }
 
-  /*public void updateOdometry() {
+  public void updateOdometry() {
     m_odometry.update(getHeadingRotation2d(), getSwerveDriveModulePositionsArray());
 
     for (SwerveModule module : ModuleMap.orderedValuesList(m_swerveModules)) {
@@ -347,13 +336,16 @@ public class SwerveDrivetrain extends SubsystemBase {
       module.setModulePose(getPoseMeters().transformBy(moduleTransform));
 
     }
-  }*/
+  }
 
   private void updateSmartDashboard(){
     SmartDashboard.putNumber("Pitch Pub", getPitchDegrees());
     SmartDashboard.putNumber("Roll Pub", getRollDegrees());
     SmartDashboard.putNumber("Yaw Pub", getHeadingDegrees());
-    SmartDashboard.putNumber("Robot Heading", getHeadingDegrees()); //fix
+    
+
+
+    //SmartDashboard.putNumber("Robot Heading", get); 
   }
 
   public void disabledPeriodic() {

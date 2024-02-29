@@ -4,11 +4,17 @@
 
 package frc.robot.subsystems;
 
+import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
+
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.Constants;
 
 public class WristSubsystem extends SubsystemBase {
   /** Creates a new WristSubsystem. */
-  public WristSubsystem() {}
+  public WristSubsystem() {
+   WPI_TalonSRX m_wristMotorLeft = new WPI_TalonSRX(Constants.WristMotors.m_wristMotorLeft);
+   WPI_TalonSRX m_wristMotorRight = new WPI_TalonSRX(Constants.WristMotors.m_wristMotorRight);
+  }
 
   @Override
   public void periodic() {

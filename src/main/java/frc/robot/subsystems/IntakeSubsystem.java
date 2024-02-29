@@ -4,11 +4,53 @@
 
 package frc.robot.subsystems;
 
+import com.revrobotics.CANSparkLowLevel;
+import com.revrobotics.CANSparkMax;
+
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.Constants;
 
 public class IntakeSubsystem extends SubsystemBase {
   /** Creates a new IntakeSubsystem. */
-  public IntakeSubsystem() {}
+
+   private CANSparkMax m_intakeBottom = new CANSparkMax(Constants.IntakeMotors.m_bottomMotor, CANSparkLowLevel.MotorType.kBrushless);
+   private CANSparkMax m_intakeTop = new CANSparkMax(Constants.IntakeMotors.m_topMotor, CANSparkLowLevel.MotorType.kBrushless);
+   private CANSparkMax m_intakeTransfer = new CANSparkMax(Constants.IntakeMotors.m_transferMotor, CANSparkLowLevel.MotorType.kBrushless);
+  
+   public IntakeSubsystem() {}
+
+   public void IntakeNote() {
+    m_intakeTop.set(0.7); 
+    m_intakeBottom.set(0.7);
+
+    new Thread(()->{
+      try{
+        Thread.sleep(500);
+        m_intakeTransfer.set(0.2); 
+      }catch (Exception e){
+      }}).start();
+  }
+
+  public void stopMotors(){
+    m_intakeTop.set(0);
+    m_intakeBottom.set(0);
+    m_intakeTransfer.set(0);
+  }
+
+  public void ShootNote() {
+    m_intakeTop.set(-1); 
+    m_intakeBottom.set(-1);
+    
+    new Thread(()->{
+      try{
+        Thread.sleep(500);
+        m_intakeTransfer.set(-1); 
+      }catch (Exception e){
+      }}).start();
+  }
+
+  
+
 
   @Override
   public void periodic() {

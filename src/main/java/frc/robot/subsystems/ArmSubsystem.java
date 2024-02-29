@@ -4,11 +4,29 @@
 
 package frc.robot.subsystems;
 
+import com.revrobotics.CANSparkLowLevel;
+import com.revrobotics.CANSparkMax;
+import com.revrobotics.SparkPIDController;
+
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.Constants;
 
 public class ArmSubsystem extends SubsystemBase {
   /** Creates a new ArmSubsystem. */
-  public ArmSubsystem() {}
+  private CANSparkMax m_leftArmMotor = new CANSparkMax(Constants.ArmMotors.m_armMotorLeft, CANSparkLowLevel.MotorType.kBrushless);
+  private CANSparkMax m_rightArmMotor = new CANSparkMax(Constants.ArmMotors.m_armMotorLeft, CANSparkLowLevel.MotorType.kBrushless);
+
+   private SparkPIDController m_LeftPidController;
+  
+    // CANMotorController.addFollower
+
+
+  public double kP, kI, kD, kIz, kFF, kMaxOutput, kMinOutput;
+  public double rotations;
+
+  public ArmSubsystem() {
+    
+  }
 
   @Override
   public void periodic() {
