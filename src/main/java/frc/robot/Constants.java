@@ -46,6 +46,18 @@ public final class Constants {
   } 
  
 
+  public final class ZeroPIDCoefficients{
+    public static final double m_ZerokP = 0; 
+    public static final double m_ZerokI = 0.000;
+    public static final double m_ZerokD = 0.000; 
+    public static final double m_ZerokIz = 0; 
+    public static final double m_ZerokFF = 0; 
+    public static final double m_ZerokMaxOutput = 0; 
+    public static final double m_ZerokMinOutput = -0;
+    
+
+
+  }
 
   public final class DriverController{
 
@@ -108,6 +120,8 @@ public final class Constants {
     public static final int m_bottomMotor = 22;
     public static final int m_transferMotor = 23; 
    }
+
+
 
    public static final class DriveConstants{
     public static final boolean kFrontLeftTurningMotorReversed = true;

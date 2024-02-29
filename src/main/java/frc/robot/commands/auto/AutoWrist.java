@@ -4,14 +4,23 @@
 
 package frc.robot.commands.auto;
 
+import com.revrobotics.CANSparkMax;
+
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.RobotContainer;
 
-public class AutoDrive extends Command {
-  /** Creates a new AutoDrive. */
-  public AutoDrive() {
+public class AutoWrist extends Command {
+  /** Creates a new AutoWrist. */
+
+  double m_pValue;
+  double m_rotations;
+
+  public AutoWrist(double pValue, double rotations) {
     // Use addRequirements() here to declare subsystem dependencies.
-    addRequirements(RobotContainer.m_swerveDrive);
+    addRequirements(RobotContainer.m_wrist);
+
+    m_pValue = pValue;
+    m_rotations = rotations;
   }
 
   // Called when the command is initially scheduled.
@@ -20,7 +29,10 @@ public class AutoDrive extends Command {
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
-  public void execute() {}
+  public void execute() {
+     RobotContainer.m_wrist.setAutoPIDValues(m_pValue);
+    RobotContainer.m_wrist.setArmReference(m_rotations, CANSparkMax.ControlType.kPosition);
+  }
 
   // Called once the command ends or is interrupted.
   @Override
