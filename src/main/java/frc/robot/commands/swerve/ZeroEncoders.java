@@ -2,14 +2,15 @@
 // Open Source Software; you can modify and/or share it under the terms of
 // the WPILib BSD license file in the root directory of this project.
 
-package frc.robot.commands.auto;
+package frc.robot.commands.swerve;
 
 import edu.wpi.first.wpilibj2.command.Command;
+import frc.robot.Constants;
 import frc.robot.RobotContainer;
 
-public class AutoDrive extends Command {
-  /** Creates a new AutoDrive. */
-  public AutoDrive() {
+public class ZeroEncoders extends Command {
+  /** Creates a new ZeroEncoders. */
+  public ZeroEncoders() {
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(RobotContainer.m_swerveDrive);
   }
@@ -20,7 +21,11 @@ public class AutoDrive extends Command {
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
-  public void execute() {}
+  public void execute() {
+    if(RobotContainer.driverController.getRawButtonPressed(Constants.DriverController.DriverButtons.m_aDriveButton)){
+      RobotContainer.m_swerveDrive.resetModulesToAbsolute();
+    }
+  }
 
   // Called once the command ends or is interrupted.
   @Override
@@ -29,6 +34,6 @@ public class AutoDrive extends Command {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return true;
+    return false;
   }
 }

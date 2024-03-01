@@ -45,12 +45,10 @@ public class RobotContainer {
   
   
   public RobotContainer() {
-        //m_chooser.setDefaultOption("no auto", null);
-        //m_chooser.addOption("High Cube Left",  new frc.robot.commands.auto.AutonSequences.AutoHighCubeLeft());
-        //m_chooser.addOption("High Cube Dock", new frc.robot.commands.Auto.AutonSequences.AutoHighCubeDock());
-        //m_chooser.addOption("High Cube Mid", new frc.robot.commands.Auto.AutonSequences.AutoHighCubeMid());
-        //m_chooser.addOption("High Cube Right", new frc.robot.commands.Auto.AutonSequences.AutoHighCubeRight());
-        //SmartDashboard.putData("Auto Choices:", m_chooser);
+        m_chooser.setDefaultOption("no auto", null);
+        m_chooser.addOption("1 Note Auto", new frc.robot.commands.auto.AutonSequences.OneNoteAuto());
+        //m_chooser.addOption("2 Note Auto", new frc.robot.commands.auto.AutonSequences.TwoNoteAuto());
+        SmartDashboard.putData("Auto Choices:", m_chooser);
 
     configureBindings();
   }

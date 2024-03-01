@@ -71,6 +71,7 @@ public final class Constants {
     }
 
     public final class DriverButtons {
+      public static final int m_aDriveButton = 2;
       public static final int m_leftDriveBumper = 5; 
       public static final int m_leftDriveTrigger = 7;
     }

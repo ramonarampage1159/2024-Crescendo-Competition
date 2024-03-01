@@ -2,36 +2,31 @@
 // Open Source Software; you can modify and/or share it under the terms of
 // the WPILib BSD license file in the root directory of this project.
  
-/*package frc.robot.commands.swerve;
+package frc.robot.commands.swerve;
 
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
+import frc.robot.RobotContainer;
 import frc.robot.subsystems.swerve.SwerveDrivetrain;
 
 
 public class SetOdometry extends Command {
 
 
-  private final SwerveDrivetrain m_swerveDrive;
-
   private Pose2d  m_pose2d;
   
   public SetOdometry(SwerveDrivetrain swerveDrive, Pose2d pose2d) {
 
     // Use addRequirements() here to declare subsystem dependencies.
-    addRequirements();
+    addRequirements(RobotContainer.m_swerveDrive);
     
-
-    m_swerveDrive = swerveDrive;
     m_pose2d = pose2d;
   }
 
   
   @Override
   public void initialize() {
-     m_swerveDrive.setOdometry(m_pose2d);
-    //if (RobotBase.isSimulation()) m_fieldSim.resetRobotPose(m_pose2d);
     SmartDashboard.putNumber("SwerveInitialPositionX", m_pose2d.getX());
     SmartDashboard.putNumber("SwerveInitialPositionY", m_pose2d.getY());
     SmartDashboard.putNumber("SwerveInitialPositionRotation", m_pose2d.getRotation().getDegrees());
@@ -55,4 +50,3 @@ public class SetOdometry extends Command {
   }
 
 }
-*/

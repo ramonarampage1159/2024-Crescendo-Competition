@@ -5,6 +5,7 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.Command;
+import frc.robot.Constants;
 import frc.robot.RobotContainer;
 
 public class ArmPID extends Command {
@@ -18,7 +19,9 @@ public class ArmPID extends Command {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    
+    if(RobotContainer.operatorController.getRawButtonPressed(Constants.OperatorController.JoystickButtons.m_aButton)){
+      
+    }
   }
 
   // Called every time the scheduler runs while the command is scheduled.

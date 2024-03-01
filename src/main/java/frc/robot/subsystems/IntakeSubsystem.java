@@ -26,7 +26,7 @@ public class IntakeSubsystem extends SubsystemBase {
     new Thread(()->{
       try{
         Thread.sleep(500);
-        m_intakeTransfer.set(0.2); 
+        m_intakeTransfer.set(0.1); 
       }catch (Exception e){
       }}).start();
   }
