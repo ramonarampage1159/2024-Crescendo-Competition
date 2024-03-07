@@ -6,27 +6,42 @@ package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.Constants;
+//import frc.robot.Constants;
 import frc.robot.RobotContainer;
-
+ 
 public class ArmPID extends Command {
-  /** Creates a new ArmPID. */
   public ArmPID() {
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(RobotContainer.m_arm);
-    addRequirements(RobotContainer.m_wrist);
+    //addRequirements(RobotContainer.m_wrist);
   }
 
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    if(RobotContainer.operatorController.getRawButtonPressed(Constants.OperatorController.JoystickButtons.m_aButton)){
-      
-    }
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
-  public void execute() {}
+  public void execute() {
+    if (RobotContainer.operatorController.getRawButtonPressed(Constants.OperatorController.JoystickButtons.m_aButton)) {
+      System.out.println("PushButtonForward");
+      RobotContainer.m_arm.pushButtonForward();
+    }
+    else if(RobotContainer.operatorController.getRawButtonReleased(Constants.OperatorController.JoystickButtons.m_aButton)){
+      System.out.println("StopMotors Forward");
+       RobotContainer.m_arm.stopMotors();
+    }
+    if(RobotContainer.operatorController.getRawButtonPressed(Constants.OperatorController.JoystickButtons.m_yButton)){
+      System.out.println("PushButtonBack");
+      RobotContainer.m_arm.pushButtonBackward();
+    }
+    else if (RobotContainer.operatorController.getRawButtonReleased(Constants.OperatorController.JoystickButtons.m_yButton)){
+         System.out.println("StopMotors Back");
+         RobotContainer.m_arm.stopMotors();
+    }
+  
+  }
 
   // Called once the command ends or is interrupted.
   @Override

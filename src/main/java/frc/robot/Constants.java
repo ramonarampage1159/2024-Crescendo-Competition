@@ -71,9 +71,11 @@ public final class Constants {
     }
 
     public final class DriverButtons {
-      public static final int m_aDriveButton = 2;
+      public static final int m_bDriveButton = 3;
       public static final int m_leftDriveBumper = 5; 
       public static final int m_leftDriveTrigger = 7;
+      public static final int m_rightDriveTrigger = 8; 
+
     }
     
    }
@@ -98,11 +100,18 @@ public final class Constants {
         public static final int m_rightStickButton = 12;
 
       }
+
+      public final class Joystick{
+
+       public static final int m_leftStickX = 0;
+       public static final int m_leftStickY = 1;
+       public static final int m_rightStickX = 2;
+    }
+    
    }
 
-   public static final class Pneumatics{
-    public static final int kSolenoidForwardChannel = 0;
-    public static final int kSolenoidReverseChannel = 1;
+   public static final class ClimbMotor{
+    public static final int m_climbMotor1 = 24;
 
    }
 

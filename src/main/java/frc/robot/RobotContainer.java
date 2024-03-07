@@ -19,7 +19,7 @@ import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.subsystems.ArmSubsystem;
 import frc.robot.subsystems.ClimbSubsystem;
 import frc.robot.subsystems.IntakeSubsystem;
-import frc.robot.subsystems.WristSubsystem;
+//import frc.robot.subsystems.WristSubsystem;
 import frc.robot.subsystems.swerve.SwerveDrivetrain;
 
 public class RobotContainer {
@@ -40,13 +40,14 @@ public class RobotContainer {
 
   public static ArmSubsystem m_arm = new ArmSubsystem();
 
-  public static WristSubsystem m_wrist = new WristSubsystem();
+  //public static WristSubsystem m_wrist = new WristSubsystem();
+
 
   
   
   public RobotContainer() {
         m_chooser.setDefaultOption("no auto", null);
-        m_chooser.addOption("1 Note Auto", new frc.robot.commands.auto.AutonSequences.OneNoteAuto());
+        //m_chooser.addOption();
         //m_chooser.addOption("2 Note Auto", new frc.robot.commands.auto.AutonSequences.TwoNoteAuto());
         SmartDashboard.putData("Auto Choices:", m_chooser);
 

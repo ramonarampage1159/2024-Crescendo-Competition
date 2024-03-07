@@ -15,7 +15,7 @@ import frc.robot.Constants;
 public class ArmSubsystem extends SubsystemBase {
   /** Creates a new ArmSubsystem. */
   private CANSparkMax m_leftArmMotor = new CANSparkMax(Constants.ArmMotors.m_armMotorLeft, CANSparkLowLevel.MotorType.kBrushless);
-  private CANSparkMax m_rightArmMotor = new CANSparkMax(Constants.ArmMotors.m_armMotorLeft, CANSparkLowLevel.MotorType.kBrushless);
+  private CANSparkMax m_rightArmMotor = new CANSparkMax(Constants.ArmMotors.m_armMotorRight, CANSparkLowLevel.MotorType.kBrushless);
 
    private SparkPIDController m_LeftPidController;
   
@@ -26,8 +26,7 @@ public class ArmSubsystem extends SubsystemBase {
   public double rotations;
 
   public ArmSubsystem() {
-    m_rightArmMotor.follow(m_leftArmMotor);
-
+        
     m_LeftPidController = m_leftArmMotor.getPIDController();
     
     
@@ -55,6 +54,22 @@ public class ArmSubsystem extends SubsystemBase {
     double ElbowPValue = m_LeftPidController.getP();
     SmartDashboard.putNumber("Elbow P Value", ElbowPValue);
 
+  }
+
+
+  public void pushButtonForward() {
+    m_leftArmMotor.set(0.6); 
+    m_rightArmMotor.set(-0.6); 
+  }
+
+  public void pushButtonBackward() {
+    m_leftArmMotor.set(-0.6); 
+    m_rightArmMotor.set(0.6); 
+  }
+
+  public void stopMotors(){
+    m_leftArmMotor.set(0);
+    m_rightArmMotor.set(0); 
   }
 
   public void setArmReference(double speed, CANSparkMax.ControlType type) {

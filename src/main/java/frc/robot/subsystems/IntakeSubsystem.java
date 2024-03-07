@@ -20,20 +20,17 @@ public class IntakeSubsystem extends SubsystemBase {
    public IntakeSubsystem() {}
 
    public void IntakeNote() {
-    m_intakeTop.set(0.7); 
-    m_intakeBottom.set(0.7);
-
-    new Thread(()->{
-      try{
-        Thread.sleep(500);
-        m_intakeTransfer.set(0.1); 
-      }catch (Exception e){
-      }}).start();
+    m_intakeTop.set(0.4); 
+    m_intakeBottom.set(0.4);
   }
+
 
   public void stopMotors(){
     m_intakeTop.set(0);
     m_intakeBottom.set(0);
+  }
+
+  public void stopTransfer(){
     m_intakeTransfer.set(0);
   }
 
@@ -47,6 +44,20 @@ public class IntakeSubsystem extends SubsystemBase {
         m_intakeTransfer.set(-1); 
       }catch (Exception e){
       }}).start();
+
+  }
+
+   public void ShootNoteAmp() {
+    m_intakeTop.set(-0.3); 
+    m_intakeBottom.set(-0.3);
+
+     new Thread(()->{
+      try{
+        Thread.sleep(200);
+        m_intakeTransfer.set(-0.2); 
+      }catch (Exception e){
+      }}).start();
+
   }
 
   

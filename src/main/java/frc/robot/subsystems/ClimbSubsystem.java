@@ -4,32 +4,37 @@
 
 package frc.robot.subsystems;
 
-import edu.wpi.first.wpilibj.DoubleSolenoid;
-import edu.wpi.first.wpilibj.PneumaticsModuleType;
+import com.ctre.phoenix6.hardware.TalonFX;
+import com.ctre.phoenix6.signals.NeutralModeValue;
+
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 
 public class ClimbSubsystem extends SubsystemBase {
   /** Creates a new ClimbSubsystem. */
+  private final TalonFX m_climbMotor = new TalonFX(Constants.ClimbMotor.m_climbMotor1);
 
-  DoubleSolenoid m_solenoid;
-
-  public void solenoidOpen() {
-    m_solenoid.set(DoubleSolenoid.Value.kForward);
+  public void ClimbExtend(){
+    m_climbMotor.set(0.4);
   }
 
-  public void solenoidClose() {
-    m_solenoid.set(DoubleSolenoid.Value.kReverse);
+  public void ClimbRetract(){
+    m_climbMotor.set(-0.4);
   }
 
-  public void solenoidOff(){
-    m_solenoid.set(DoubleSolenoid.Value.kOff);
+  public void ClimbStop(){
+    m_climbMotor.set(0);
   }
+
+  public void ZeroClimber(){
+    m_climbMotor.setPosition(0);
+  }
+
+
 
   public ClimbSubsystem() {
-    m_solenoid = new DoubleSolenoid(PneumaticsModuleType.CTREPCM, 
-     Constants.Pneumatics.kSolenoidForwardChannel,
-     Constants.Pneumatics.kSolenoidReverseChannel);
+   
+   m_climbMotor.setNeutralMode(NeutralModeValue.Brake);
   }
 
   @Override

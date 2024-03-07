@@ -22,7 +22,7 @@ public class ZeroEncoders extends Command {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    if(RobotContainer.driverController.getRawButtonPressed(Constants.DriverController.DriverButtons.m_aDriveButton)){
+    if(RobotContainer.driverController.getRawButtonPressed(Constants.DriverController.DriverButtons.m_bDriveButton)){
       RobotContainer.m_swerveDrive.resetModulesToAbsolute();
     }
   }

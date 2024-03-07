@@ -7,6 +7,7 @@ package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.Constants;
+import frc.robot.Robot;
 import frc.robot.RobotContainer;
 
 public class IntakeCommand extends Command {
@@ -28,13 +29,22 @@ public class IntakeCommand extends Command {
 
     }else if(RobotContainer.operatorController.getRawButtonReleased(Constants.OperatorController.JoystickButtons.m_leftTrigger)){
       RobotContainer.m_intake.stopMotors();
+      RobotContainer.m_intake.stopTransfer();
+
 
     }else if(RobotContainer.operatorController.getRawButtonPressed(Constants.OperatorController.JoystickButtons.m_rightTrigger)){
       RobotContainer.m_intake.ShootNote();
 
     }else if(RobotContainer.operatorController.getRawButtonReleased(Constants.OperatorController.JoystickButtons.m_rightTrigger)){
       RobotContainer.m_intake.stopMotors();
+      RobotContainer.m_intake.stopTransfer();
+
       
+    }if(RobotContainer.operatorController.getRawButtonPressed(Constants.OperatorController.JoystickButtons.m_xButton)){
+      RobotContainer.m_intake.ShootNoteAmp();
+    }else if (RobotContainer.operatorController.getRawButtonReleased(Constants.OperatorController.JoystickButtons.m_xButton)){
+      RobotContainer.m_intake.stopMotors();
+      RobotContainer.m_intake.stopTransfer();
     }
   }
 
