@@ -202,9 +202,19 @@ public class SwerveDrivetrain extends SubsystemBase {
     setSwerveModuleStates(states, false);
   }
 
+  public ChassisSpeeds getChassisSpeeds() {
+    return Constants.ModulePosition.kSwerveKinematics.toChassisSpeeds(
+            ModuleMap.orderedValues(getModuleStates(), new SwerveModuleState[0]));
+  }
+
   public void setChassisSpeed(ChassisSpeeds chassisSpeeds) {
     var states = Constants.ModulePosition.kSwerveKinematics.toSwerveModuleStates(chassisSpeeds);
     setSwerveModuleStates(states, false);
+  }
+
+  public void setOdometry(Pose2d pose) {
+    m_pigeon.setYaw(pose.getRotation().getDegrees());
+    odometer.resetPosition(getHeadingRotation2d(), getSwerveDriveModulePositionsArray(), pose);
   }
 
   public void resetGyro() {
