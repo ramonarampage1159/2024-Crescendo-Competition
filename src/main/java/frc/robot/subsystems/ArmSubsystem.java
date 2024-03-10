@@ -58,13 +58,13 @@ public class ArmSubsystem extends SubsystemBase {
 
 
   public void pushButtonForward() {
-    m_leftArmMotor.set(0.6); 
-    m_rightArmMotor.set(-0.6); 
+    m_leftArmMotor.set(0.4); 
+    m_rightArmMotor.set(-0.4); 
   }
 
   public void pushButtonBackward() {
-    m_leftArmMotor.set(-0.6); 
-    m_rightArmMotor.set(0.6); 
+    m_leftArmMotor.set(-0.4); 
+    m_rightArmMotor.set(0.4); 
   }
 
   public void stopMotors(){

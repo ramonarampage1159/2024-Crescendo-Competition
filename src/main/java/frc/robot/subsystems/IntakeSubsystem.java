@@ -20,8 +20,9 @@ public class IntakeSubsystem extends SubsystemBase {
    public IntakeSubsystem() {}
 
    public void IntakeNote() {
-    m_intakeTop.set(0.4); 
-    m_intakeBottom.set(0.4);
+    m_intakeTop.set(0.5); 
+    m_intakeBottom.set(0.5);
+    m_intakeTransfer.set(0.4);
   }
 
 
