@@ -44,7 +44,6 @@ public final class Constants {
     public static final int kRearRightCanCoder = 12;
     public static final double kRearRightModuleOffset = -0.58984375 * 360;
   } 
- 
 
   public final class ZeroPIDCoefficients{
     public static final double m_ZerokP = 0; 
@@ -54,9 +53,42 @@ public final class Constants {
     public static final double m_ZerokFF = 0; 
     public static final double m_ZerokMaxOutput = 0; 
     public static final double m_ZerokMinOutput = -0;
-    
+  }
 
+  public final class ArmDownPIDCoeffcients{
+    public static final double m_ArmDownP = 0.05; 
+    public static final double m_ArmDownI = 0.00;
+    public static final double m_ArmDownD = 0.00; 
+    public static final double m_ArmDownRotations = -17; 
+    public static final double m_ArmDownMaxOutput = 0.5; 
+    public static final double m_ArmDownMinOutput = -0.55;
+  }
 
+  public final class ArmUpPIDCoefficients{
+    public static final double m_ArmUpP = 0.05; 
+    public static final double m_ArmUpI = 0.00;
+    public static final double m_ArmUpD = 0.00; 
+    public static final double m_ArmUpRotations = 0; 
+    public static final double m_ArmUpMaxOutput = 0.5; 
+    public static final double m_ArmUpMinOutput = -0.25;
+  }
+
+  public final class ArmPIDAmpCoefficients{
+    public static final double m_AmpP = 0.05; 
+    public static final double m_AmpI = 0.00;
+    public static final double m_AmpD = 0.00; 
+    public static final double m_AmpRotations = -1.75; 
+    public static final double m_AmpMaxOutput = 0.5; 
+    public static final double m_AmpMinOutput = -0.25;
+  }
+
+  public final class ArmPodiumPIDCoeffiecients{
+    public static final double m_PodiumP = 0.05; 
+    public static final double m_PodiumI = 0.00;
+    public static final double m_PodiumD = 0.00; 
+    public static final double m_PodiumRotations = -2.25; 
+    public static final double m_PodiumMaxOutput = 0.5; 
+    public static final double m_PodiumMinOutput = -0.25;
   }
 
   public final class DriverController{
@@ -111,15 +143,13 @@ public final class Constants {
    }
 
    public static final class ClimbMotor{
-    public static final int m_climbMotor1 = 24;
+    //public static final int m_climbMotor1 = 24;
+    public static final int m_climbMotor1 = 17;
+    public static final int m_climbMotor2 = 18;
 
    }
 
-   public static final class WristMotors{
-    public static final int m_wristMotorLeft = 17;
-    public static final int m_wristMotorRight = 18;
-   }
-
+   
    public static final class ArmMotors{
     public static final int m_armMotorRight = 19;
     public static final int m_armMotorLeft = 20;

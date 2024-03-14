@@ -18,15 +18,14 @@ public class ArmSubsystem extends SubsystemBase {
   private CANSparkMax m_rightArmMotor = new CANSparkMax(Constants.ArmMotors.m_armMotorRight, CANSparkLowLevel.MotorType.kBrushless);
 
    private SparkPIDController m_LeftPidController;
-  
-   
-
 
   public double kP, kI, kD, kIz, kFF, kMaxOutput, kMinOutput;
   public double rotations;
 
   public ArmSubsystem() {
-        
+
+    m_rightArmMotor.follow(m_leftArmMotor,true);
+
     m_LeftPidController = m_leftArmMotor.getPIDController();
     
     
@@ -42,34 +41,19 @@ public class ArmSubsystem extends SubsystemBase {
 
   
     
-    SmartDashboard.putNumber("Elbow P Gain", kP);
-    SmartDashboard.putNumber("Elbow I Gain", kI);
-    SmartDashboard.putNumber("Elbow D Gain", kD);
-    SmartDashboard.putNumber("Elbow I Zone", kIz);
-    SmartDashboard.putNumber("Elbow Feed Forward", kFF);
-    SmartDashboard.putNumber("Elbow Max Output", kMaxOutput);
-    SmartDashboard.putNumber("Elbow Min Output", kMinOutput);
-    SmartDashboard.putNumber("Elbow Set Rotations", 0);
+    SmartDashboard.putNumber("Arm P Gain", kP);
+    SmartDashboard.putNumber("Arm I Gain", kI);
+    SmartDashboard.putNumber("Arm D Gain", kD);
+    SmartDashboard.putNumber("Arm I Zone", kIz);
+    SmartDashboard.putNumber("Arm Feed Forward", kFF);
+    SmartDashboard.putNumber("Arm Max Output", kMaxOutput);
+    SmartDashboard.putNumber("Arm Min Output", kMinOutput);
+    SmartDashboard.putNumber("Arm Set Rotations", 0);
  
-    double ElbowPValue = m_LeftPidController.getP();
-    SmartDashboard.putNumber("Elbow P Value", ElbowPValue);
+    double ArmPValue = m_LeftPidController.getP();
 
-  }
+    SmartDashboard.putNumber("Arm P Value", ArmPValue);
 
-
-  public void pushButtonForward() {
-    m_leftArmMotor.set(0.4); 
-    m_rightArmMotor.set(-0.4); 
-  }
-
-  public void pushButtonBackward() {
-    m_leftArmMotor.set(-0.4); 
-    m_rightArmMotor.set(0.4); 
-  }
-
-  public void stopMotors(){
-    m_leftArmMotor.set(0);
-    m_rightArmMotor.set(0); 
   }
 
   public void setArmReference(double speed, CANSparkMax.ControlType type) {
@@ -100,28 +84,16 @@ public class ArmSubsystem extends SubsystemBase {
   public void setPIDValues(double kP, double kI, double kD, double kMinOutput, double kMaxOutput) {
 
     m_LeftPidController.setP(kP);
+    m_LeftPidController.setOutputRange(kMinOutput, kMaxOutput);
   }
-
-
-public void setAutoPIDValues(double kP) {
-  
-  m_LeftPidController.setP(kP);
-  m_LeftPidController.setI(0.0);
-  m_LeftPidController.setD(0.0);
-  m_LeftPidController.setIZone(0.0);
-  m_LeftPidController.setFF(0.0);
-  m_LeftPidController.setOutputRange(-0.15, 0.15);
-
-
-}
 
  @Override
   public void periodic() {
     // This method will be called once per scheduler run
-    SmartDashboard.putNumber("elbow right",m_rightArmMotor.getEncoder().getPosition());
-    SmartDashboard.putNumber("elbow left",m_leftArmMotor.getEncoder().getPosition());
-    SmartDashboard.putNumber("elbow lrft current",m_leftArmMotor.getOutputCurrent());
-    SmartDashboard.putBoolean("elbow at setpoint", isAtSetpoint());
+    SmartDashboard.putNumber("arm right",m_rightArmMotor.getEncoder().getPosition());
+    SmartDashboard.putNumber("arm left",m_leftArmMotor.getEncoder().getPosition());
+    SmartDashboard.putNumber("arm lrft current",m_leftArmMotor.getOutputCurrent());
+    SmartDashboard.putBoolean("arm at setpoint", isAtSetpoint());
   }
 
 }

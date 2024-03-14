@@ -1,0 +1,121 @@
+{
+  "version": 1.0,
+  "startingPose": {
+    "position": {
+      "x": 1.407706324685116,
+      "y": 7.330983677659224
+    },
+    "rotation": 180.0
+  },
+  "command": {
+    "type": "sequential",
+    "data": {
+      "commands": [
+        {
+          "type": "path",
+          "data": {
+            "pathName": "2NL align"
+          }
+        },
+        {
+          "type": "wait",
+          "data": {
+            "waitTime": 0.3
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "shoot note"
+          }
+        },
+        {
+          "type": "wait",
+          "data": {
+            "waitTime": 0.7
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "motors stop"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "2NL turn"
+          }
+        },
+        {
+          "type": "wait",
+          "data": {
+            "waitTime": 0.05
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "arm down"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "intake note"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "2NL Forward"
+          }
+        },
+        {
+          "type": "wait",
+          "data": {
+            "waitTime": 0.2
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "motors stop"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "arm up"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "2NL score"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "shoot note"
+          }
+        },
+        {
+          "type": "wait",
+          "data": {
+            "waitTime": 0.7
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "motors stop"
+          }
+        }
+      ]
+    }
+  },
+  "folder": null,
+  "choreoAuto": false
+}

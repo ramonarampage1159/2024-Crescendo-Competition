@@ -35,10 +35,14 @@ import edu.wpi.first.math.geometry.Transform2d;
 import java.util.HashMap;
 import java.util.Map;
 
-
+import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.SPI;
 
 import com.kauailabs.navx.frc.AHRS;
+import com.pathplanner.lib.auto.AutoBuilder;
+import com.pathplanner.lib.util.HolonomicPathFollowerConfig;
+import com.pathplanner.lib.util.PIDConstants;
+import com.pathplanner.lib.util.ReplanningConfig;
 
 public class SwerveDrivetrain extends SubsystemBase {
 
@@ -93,7 +97,7 @@ public class SwerveDrivetrain extends SubsystemBase {
 
  private Trajectory m_Trajectory; 
 
-  private boolean useHeadingTarget = false;
+  private boolean useHeadingTarget = false; //changed to true
   private double m_desiredRobotHeading;
 
   private final TrapezoidProfile.Constraints m_constraints =
@@ -124,6 +128,30 @@ public class SwerveDrivetrain extends SubsystemBase {
     }
     }).start();
   
+     AutoBuilder.configureHolonomic(
+        this::getPoseMeters,
+        this::setOdometry,
+        this::getSpeeds,
+        this::driveRobotRelative,
+        new HolonomicPathFollowerConfig(
+          new PIDConstants(0.01, 0, 0),
+          new PIDConstants(0.01, 0, 0), 
+          4.5,0.4,
+          new ReplanningConfig()
+        ),
+        () -> {
+           var alliance = DriverStation.getAlliance();
+              if(alliance.isPresent())
+              {
+                return alliance.get() == DriverStation.Alliance.Red;
+              }
+
+              return false;
+
+        },
+      
+      this
+      );
   }
 
     public void zeroHeading(){
@@ -310,6 +338,36 @@ public class SwerveDrivetrain extends SubsystemBase {
     return m_Trajectory;
   }
 
+
+  // pathplanner testing!!
+  public void driveRobotRelative(ChassisSpeeds robotRelativeSpeeds){
+    ChassisSpeeds targetSpeeds = ChassisSpeeds.discretize(robotRelativeSpeeds, 0.02);
+
+    SwerveModuleState[] targetStates = Constants.ModulePosition.kSwerveKinematics.toSwerveModuleStates(targetSpeeds);
+    setSwerveModuleStatesAuto(targetStates);
+  }
+
+
+  public ChassisSpeeds getSpeeds(){
+    return Constants.ModulePosition.kSwerveKinematics.toChassisSpeeds(getModuleState());
+  } 
+
+  public SwerveModuleState[] getModuleState() {
+    SwerveModuleState[] states = new SwerveModuleState[m_swerveModules.size()];
+
+    int i=0;
+
+    for (SwerveModule module : ModuleMap.orderedValuesList(m_swerveModules))
+    {
+      states[i] = module.getState();
+      i++;
+    }
+    return states;
+  }
+
+  public void setOdometry(Pose2d pose) {
+    odometer.resetPosition(getHeadingRotation2d(), getSwerveDriveModulePositionsArray(), pose);
+  }
 
   private void updateSmartDashboard(){
     SmartDashboard.putNumber("Pitch Pub", getPitchDegrees());

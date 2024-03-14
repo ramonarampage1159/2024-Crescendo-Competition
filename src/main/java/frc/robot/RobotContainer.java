@@ -12,6 +12,9 @@ import frc.robot.commands.swerve.SwerveDriver;
 
 import java.util.HashMap;
 
+import com.pathplanner.lib.auto.AutoBuilder;
+import com.pathplanner.lib.auto.NamedCommands;
+
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -19,8 +22,14 @@ import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.subsystems.ArmSubsystem;
 import frc.robot.subsystems.ClimbSubsystem;
 import frc.robot.subsystems.IntakeSubsystem;
-//import frc.robot.subsystems.WristSubsystem;
 import frc.robot.subsystems.swerve.SwerveDrivetrain;
+import frc.robot.commands.auto.AutoCmds.AutonArmAmp;
+import frc.robot.commands.auto.AutoCmds.AutonArmDown;
+import frc.robot.commands.auto.AutoCmds.AutonArmPodium;
+import frc.robot.commands.auto.AutoCmds.AutonArmUp;
+import frc.robot.commands.auto.AutoCmds.AutonIntake;
+import frc.robot.commands.auto.AutoCmds.AutonShoot;
+import frc.robot.commands.auto.AutoCmds.AutonStopIntake;
 
 public class RobotContainer {
   // The robot's subsystems and commands are defined here...
@@ -28,7 +37,7 @@ public class RobotContainer {
   public static Joystick driverController = new Joystick(Constants.DriverController.m_driverController);
   public static Joystick operatorController = new Joystick(Constants.OperatorController.m_operatorController);
 
-  private final SendableChooser<Command> m_chooser = new SendableChooser<>();
+  private final SendableChooser<Command> autoChooser;
 
   HashMap<String, Command> m_eventMap = new HashMap<>();
   
@@ -40,16 +49,38 @@ public class RobotContainer {
 
   public static ArmSubsystem m_arm = new ArmSubsystem();
 
-  //public static WristSubsystem m_wrist = new WristSubsystem();
 
 
-  
+  public static AutonShoot m_autoshoot = new AutonShoot();
+
+  public static AutonIntake m_autoIntake = new AutonIntake();
+
+  public static AutonStopIntake m_autoStopInt = new AutonStopIntake();
+
+  public static AutonArmDown m_autoArmDown = new AutonArmDown();
+
+  public static AutonArmUp m_autoArmUp = new AutonArmUp();
+
+  public static AutonArmPodium m_autoArmPodium = new AutonArmPodium();
+
+  public static AutonArmAmp m_autoArmAmp = new AutonArmAmp();
+
   
   public RobotContainer() {
-        m_chooser.setDefaultOption("no auto", null);
-        //m_chooser.addOption();
-        //m_chooser.addOption("2 Note Auto", new frc.robot.commands.auto.AutonSequences.TwoNoteAuto());
-        SmartDashboard.putData("Auto Choices:", m_chooser);
+
+    // setting named cmds
+    NamedCommands.registerCommand("shoot note", m_autoshoot);
+    NamedCommands.registerCommand("intake note", m_autoIntake);
+    NamedCommands.registerCommand("motors stop", m_autoStopInt);
+    NamedCommands.registerCommand("arm down", m_autoArmDown);
+    NamedCommands.registerCommand("arm up", m_autoArmUp);
+    NamedCommands.registerCommand("arm amp", m_autoArmAmp);
+    NamedCommands.registerCommand("arm podium", m_autoArmPodium);
+
+
+    autoChooser = AutoBuilder.buildAutoChooser();
+
+    SmartDashboard.putData("Auto Chooser", autoChooser);
 
     configureBindings();
   }
@@ -90,6 +121,6 @@ public class RobotContainer {
    * @return the command to run in autonomous
    */
   public Command getAutonomousCommand() {
-    return null;
+    return autoChooser.getSelected();
   }
 }

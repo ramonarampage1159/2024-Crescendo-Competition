@@ -17,7 +17,7 @@ public class Climber extends Command {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    RobotContainer.m_climb.ZeroClimber();
+    //RobotContainer.m_climb.ZeroClimber();
   }
 
   // Called every time the scheduler runs while the command is scheduled.

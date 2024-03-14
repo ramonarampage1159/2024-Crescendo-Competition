@@ -21,7 +21,6 @@ import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.kinematics.SwerveModulePosition;
 import edu.wpi.first.math.kinematics.SwerveModuleState;
 import edu.wpi.first.wpilibj.RobotBase;
-//import edu.wpi.first.wpilibj.RobotController;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Constants;
 import frc.robot.Constants.ModulePosition.Swerve_Module_Position;
@@ -221,6 +220,9 @@ resetEncoders();
         m_turnMotor.set(0);
       }
     
+      //pathplanner testing
+
+      
       private void updateSmartDashboard() {
         SmartDashboard.putNumber("Module " + m_moduleNumber + " Internal Angle",getHeadingDegrees());
         SmartDashboard.putNumber("Module " + m_moduleNumber + " Distance",getPosition().distanceMeters);
